@@ -1,5 +1,6 @@
 package fr.free.nrw.commons.contributions;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,6 +50,8 @@ public class ContributionsListFragment extends CommonsDaggerSupportFragment {
     FloatingActionButton fabGallery;
     @BindView(R.id.noDataYet)
     TextView noDataYet;
+    @BindView(R.id.fab_layout)
+    LinearLayout fab_layout;
 
     @Inject @Named("default_preferences") BasicKvStore basicKvStore;
     @Inject @Named("direct_nearby_upload_prefs") JsonKvStore directKvStore;
@@ -77,6 +81,17 @@ public class ContributionsListFragment extends CommonsDaggerSupportFragment {
         super.onViewCreated(view, savedInstanceState);
         initializeAnimations();
         setListeners();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // check orientation
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            fab_layout.setOrientation(LinearLayout.HORIZONTAL);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            fab_layout.setOrientation(LinearLayout.VERTICAL);
+        }
     }
 
     public void changeEmptyScreen(boolean isEmpty){
