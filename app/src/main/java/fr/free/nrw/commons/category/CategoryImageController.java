@@ -1,5 +1,7 @@
 package fr.free.nrw.commons.category;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import javax.inject.Singleton;
 
 import fr.free.nrw.commons.Media;
 import fr.free.nrw.commons.mwapi.MediaWikiApi;
+import timber.log.Timber;
 
 @Singleton
 public class CategoryImageController {
@@ -25,14 +28,18 @@ public class CategoryImageController {
      * @return
      */
     public List<Media> getCategoryImages(String categoryName) {
-        List<Media> go = new ArrayList<Media>();
-        List<Media> come = mediaWikiApi.getCategoryImages(categoryName);
+        List<Media> after_filter = new ArrayList<>();
+        List<Media> before_filter = mediaWikiApi.getCategoryImages(categoryName);
 
-        for(int i=0 ; i<come.size() ; i++){
-            if(!come.get(i).getRequestedDeletion()){
-                go.add(come.get(i));
+        if(categoryName.equals("Category:Uploaded_with_Mobile/Android")){
+            for(int i=0 ; i<before_filter.size() ; i++){
+                Media temp = before_filter.get(i);
+                if(!temp.getRequestedDeletion()){
+                    after_filter.add(temp);
+                }
             }
+            return after_filter;
         }
-        return go;
+        return before_filter;
     }
 }
