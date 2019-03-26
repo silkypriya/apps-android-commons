@@ -2,6 +2,7 @@ package fr.free.nrw.commons.category;
 
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,14 @@ public class CategoryImageController {
         if(categoryName.equals("Category:Uploaded_with_Mobile/Android")){
             for(int i=0 ; i<before_filter.size() ; i++){
                 Media temp = before_filter.get(i);
-                if(!temp.getRequestedDeletion()){
+                String wikitext = "";
+                try {
+                    wikitext = mediaWikiApi.getwikitext(temp.getFilePageTitle());
+                } catch (IOException e){
+                    Timber.d("Error");
+                }
+
+                if(!wikitext.contains("{{delete")){
                     after_filter.add(temp);
                 }
             }

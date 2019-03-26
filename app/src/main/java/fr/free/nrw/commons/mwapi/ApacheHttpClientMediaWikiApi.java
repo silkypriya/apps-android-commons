@@ -39,6 +39,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import fr.free.nrw.commons.BuildConfig;
 import fr.free.nrw.commons.Media;
+import fr.free.nrw.commons.PageTitle;
 import fr.free.nrw.commons.R;
 import fr.free.nrw.commons.auth.AccountUtil;
 import fr.free.nrw.commons.category.CategoryImageUtils;
@@ -328,6 +329,17 @@ public class ApacheHttpClientMediaWikiApi implements MediaWikiApi {
                 .param("title", "Main_page")
                 .get()
                 .getString("/api/flow-parsoid-utils/@content");
+    }
+
+    @Override
+    @NonNull
+    public String getwikitext(PageTitle title) throws IOException {
+        return api.action("parse")
+                .param("PageTitle", "title")
+                .param("prop", "wikitext")
+                .param("section", 1)
+                .get()
+                .getString("/api/parse/wikitext/*");
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import fr.free.nrw.commons.Media;
+import fr.free.nrw.commons.PageTitle;
 import fr.free.nrw.commons.notification.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -111,4 +112,7 @@ public interface MediaWikiApi {
     interface ProgressListener {
         void onProgress(long transferred, long total);
     }
+
+    @NonNull
+    String getwikitext(PageTitle title) throws IOException;
 }
