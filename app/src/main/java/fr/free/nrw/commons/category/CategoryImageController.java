@@ -1,5 +1,6 @@
 package fr.free.nrw.commons.category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +25,14 @@ public class CategoryImageController {
      * @return
      */
     public List<Media> getCategoryImages(String categoryName) {
-        return mediaWikiApi.getCategoryImages(categoryName);
+        List<Media> go = new ArrayList<Media>();
+        List<Media> come = mediaWikiApi.getCategoryImages(categoryName);
+
+        for(int i=0 ; i<come.size() ; i++){
+            if(!come.get(i).getRequestedDeletion()){
+                go.add(come.get(i));
+            }
+        }
+        return go;
     }
 }
