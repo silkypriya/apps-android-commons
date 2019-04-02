@@ -38,8 +38,11 @@ public class CategoryImageController {
                 String wikitext = "";
                 try {
                     wikitext = mediaWikiApi.getwikitext(temp.getFilePageTitle());
-                } catch (IOException e){
-                    Timber.d("Error");
+                    Log.d("WIKI_TEXT", wikitext);
+//                    Timber.d(wikitext);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    Log.d("WIKI_TEXT", "Error : " + e.getMessage());
                 }
 
                 if(!wikitext.contains("{{delete")){

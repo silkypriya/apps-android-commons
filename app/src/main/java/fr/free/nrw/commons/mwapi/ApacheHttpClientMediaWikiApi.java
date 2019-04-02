@@ -334,12 +334,14 @@ public class ApacheHttpClientMediaWikiApi implements MediaWikiApi {
     @Override
     @NonNull
     public String getwikitext(PageTitle title) throws IOException {
-        return api.action("parse")
-                .param("PageTitle", "title")
+        CustomApiResult result =  api.action("parse")
+                .param("page", title)
                 .param("prop", "wikitext")
                 .param("section", 1)
-                .get()
-                .getString("/api/parse/wikitext/*");
+                .get();
+
+        return result.toString();
+
     }
 
     @Override
