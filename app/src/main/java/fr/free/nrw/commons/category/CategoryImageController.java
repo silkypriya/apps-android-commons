@@ -30,7 +30,7 @@ public class CategoryImageController {
      */
     public List<Media> getCategoryImages(String categoryName) {
         List<Media> after_filter = new ArrayList<>();
-        List<Media> before_filter = mediaWikiApi.getCategoryImages(categoryName);
+        List<Media> before_filter = mediaWikiApi. getCategoryImages(categoryName);
 
         if(categoryName.equals("Category:Uploaded_with_Mobile/Android")){
             for(int i=0 ; i<before_filter.size() ; i++){

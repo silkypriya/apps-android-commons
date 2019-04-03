@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -337,8 +338,9 @@ public class ApacheHttpClientMediaWikiApi implements MediaWikiApi {
         CustomApiResult result =  api.action("parse")
                 .param("page", title)
                 .param("prop", "wikitext")
-                .param("section", 1)
+                .param("format", "json")
                 .get();
+        Log.d("WIKI_TEXT", "silky");
 
         return result.toString();
 
