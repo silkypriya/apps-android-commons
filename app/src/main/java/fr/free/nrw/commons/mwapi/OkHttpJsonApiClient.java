@@ -338,6 +338,7 @@ public class OkHttpJsonApiClient {
     /**
      * Append params for search query.
      *
+     *
      * @param query      the search query to be sent to the API
      * @param urlBuilder builder for HttpUrl
      */
