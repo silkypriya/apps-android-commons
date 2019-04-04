@@ -61,6 +61,7 @@ public class OkHttpJsonApiClient {
     private final String commonsBaseUrl;
     private final JsonKvStore defaultKvStore;
     private Gson gson;
+    private MediaWikiApi mediaWikiApi;
 
 
     @Inject
@@ -70,7 +71,7 @@ public class OkHttpJsonApiClient {
                                String campaignsUrl,
                                String commonsBaseUrl,
                                JsonKvStore defaultKvStore,
-                               Gson gson) {
+                               Gson gson,MediaWikiApi mediaWikiApi) {
         this.okHttpClient = okHttpClient;
         this.wikiMediaToolforgeUrl = wikiMediaToolforgeUrl;
         this.sparqlQueryUrl = sparqlQueryUrl;
@@ -78,6 +79,7 @@ public class OkHttpJsonApiClient {
         this.commonsBaseUrl = commonsBaseUrl;
         this.defaultKvStore = defaultKvStore;
         this.gson = gson;
+        this.mediaWikiApi = mediaWikiApi;
     }
 
     @NonNull
@@ -295,11 +297,8 @@ public class OkHttpJsonApiClient {
      * @return
      */
 
-    @Inject
-    MediaWikiApi mediaWikiApi;
     @Nullable
     public Single<List<Media>> getMediaList(String queryType, String keyword) {
-        Log.d("CATCAT",keyword);
         HttpUrl.Builder urlBuilder = HttpUrl
                 .parse(commonsBaseUrl)
                 .newBuilder()
