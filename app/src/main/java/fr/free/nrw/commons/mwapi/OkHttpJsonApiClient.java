@@ -296,9 +296,10 @@ public class OkHttpJsonApiClient {
      */
 
     @Inject
-    MediaWikiApi mwApi;
+    MediaWikiApi mediaWikiApi;
     @Nullable
     public Single<List<Media>> getMediaList(String queryType, String keyword) {
+        Log.d("CATCAT",keyword);
         HttpUrl.Builder urlBuilder = HttpUrl
                 .parse(commonsBaseUrl)
                 .newBuilder()
@@ -338,16 +339,16 @@ public class OkHttpJsonApiClient {
 
                             String wikitext = "";
                             try {
-                                wikitext = mwApi.getwikitext(media.getPageTitle());
+                                wikitext = mediaWikiApi.getwikitext(media.getPageTitle());
                                 Log.d("WIKI_TEXT",wikitext);
-                            } catch (IOException e){
-                                Log.d("WIKI_TEXT",wikitext);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                                Log.d("WIKI_TEXT", "Error : " + e.getMessage());
                             }
 
                             if(!wikitext.contains("{{delete")){
                                 mediaList.add(media);
                             }
-
                         } else mediaList.add(media);
                     }
                 }
