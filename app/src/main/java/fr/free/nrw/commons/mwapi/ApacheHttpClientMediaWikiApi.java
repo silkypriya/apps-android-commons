@@ -3,6 +3,7 @@ package fr.free.nrw.commons.mwapi;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -20,6 +21,7 @@ import org.apache.http.params.CoreProtocolPNames;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.wikipedia.page.PageTitle;
 import org.wikipedia.util.DateUtil;
 
 import java.io.IOException;
@@ -314,6 +316,18 @@ public class ApacheHttpClientMediaWikiApi implements MediaWikiApi {
                 .param("title", "Main_page")
                 .get()
                 .getString("/api/flow-parsoid-utils/@content"));
+    }
+
+    @Override
+    @NonNull
+    public String getwikitext(PageTitle title) throws IOException {
+         CustomApiResult result = api.action("parse")
+                .param("page", title)
+                .param("prop", "wikitext")
+                .param("format", "json")
+                .get();
+        Log.d("WIKI_TEXT","silk");
+         return result.toString();
     }
 
     @Override

@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import fr.free.nrw.commons.notification.Notification;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import fr.free.nrw.commons.Media;
+import org.wikipedia.page.PageTitle;
 
 public interface MediaWikiApi {
 
@@ -105,4 +107,7 @@ public interface MediaWikiApi {
     interface ProgressListener {
         void onProgress(long transferred, long total);
     }
+
+    @NonNull
+    String getwikitext(PageTitle title) throws IOException;
 }

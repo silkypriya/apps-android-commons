@@ -1,5 +1,7 @@
 package fr.free.nrw.commons.mwapi;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,6 +43,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import timber.log.Timber;
+import fr.free.nrw.commons.mwapi.MediaWikiApi;
 
 /**
  * Test methods in ok http api client
@@ -291,6 +294,9 @@ public class OkHttpJsonApiClient {
      * @param keyword the search keyword. Can be either category name or search query
      * @return
      */
+
+    @Inject
+    MediaWikiApi mwApi;
     @Nullable
     public Single<List<Media>> getMediaList(String queryType, String keyword) {
         HttpUrl.Builder urlBuilder = HttpUrl
@@ -327,7 +333,22 @@ public class OkHttpJsonApiClient {
                 for (MwQueryPage page : pages) {
                     Media media = Media.from(page);
                     if (media != null) {
-                        mediaList.add(media);
+
+                        if(keyword.equals("Category:Uploaded_with_Mobile/Android")){
+
+                            String wikitext = "";
+                            try {
+                                wikitext = mwApi.getwikitext(media.getPageTitle());
+                                Log.d("WIKI_TEXT",wikitext);
+                            } catch (IOException e){
+                                Log.d("WIKI_TEXT",wikitext);
+                            }
+
+                            if(!wikitext.contains("{{delete")){
+                                mediaList.add(media);
+                            }
+
+                        } else mediaList.add(media);
                     }
                 }
             }
