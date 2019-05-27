@@ -5,6 +5,7 @@ import android.os.Bundle;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import dagger.android.AndroidInjection;
 import fr.free.nrw.commons.R;
 import fr.free.nrw.commons.di.CommonsDaggerAppCompatActivity;
 import fr.free.nrw.commons.kvstore.JsonKvStore;

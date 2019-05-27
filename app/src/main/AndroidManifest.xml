@@ -124,12 +124,16 @@
             />
 
         <activity
-            android:name=".achievements.AchievementsActivity"
-            android:label="@string/Achievements" />
+            android:name=".profile.ProfileActivity"
+            android:label="Profile" />
 
         <activity
             android:name=".bookmarks.BookmarksActivity"
             android:label="@string/title_activity_bookmarks" />
+
+        <activity
+            android:name=".TestActivity"
+            android:label="Test" />
 
         <activity
             android:name=".review.ReviewActivity"
